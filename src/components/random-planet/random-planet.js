@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 
 import './random-planet.css';
 import SwapiService from "../../service/swapi-service";
+import Spinner from "../spinner/spinner";
+import PlanetView from "./planet-view";
 
 export default class RandomPlanet extends Component {
 	
@@ -11,40 +13,35 @@ export default class RandomPlanet extends Component {
 		super();
 		
 		this.state = {
-			id: null,
-			name: null,
-			population: null,
-			rotationPeriod: null,
-			diameter: null,
+			planet: {},
+			loading: true,
 		};
 		
 		this.updatePlanet();
 	}
 	
 	updatePlanet() {
-		const id = Math.floor( Math.random()*10  + 1);
+		const id = Math.floor( Math.random()*20  + 1);
 		
 		this.swapiService.getPlanet(id)
 			.then( (planet) => {
-				this.setState(planet)
+				this.setState({
+					planet,
+					loading: false
+				})
 			})
 	}
 	
 	render() {
-		const { id, name, population, rotationPeriod, diameter } = this.state;
+		const { planet, loading} = this.state;
+		
+		const spinner = loading ? <Spinner /> : null;
+		const content = !loading ? <PlanetView  planet={planet}/> : null;
 		
 		return (
 			<div className="box random-planet d-flex align-items-center">
-				<img className='planet__img' src={`https://starwars-visualguide.com/assets/img/planets/${id}.jpg`} alt={`${name}`} />
-				
-				<div className="planet__content">
-					<h2>{name}</h2>
-					<div className="planet__description">
-						<div className='border-top'>Population: {population}</div>
-						<div className='border-top'>Rotation Period: {rotationPeriod}</div>
-						<div className='border-top'>Diameter: {diameter}</div>
-					</div>
-				</div>
+				{spinner}
+				{content}
 			</div>
 		)
 	}
