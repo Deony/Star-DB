@@ -1,0 +1,20 @@
+.random-planet {
+	padding: 1rem;
+}
+
+.planet__img {
+	margin-right: 1em;
+	width: 180px;
+	border-radius: 10px;
+}
+.planet__content {
+	width: 100%;
+}
+
+.planet__description {
+	padding-left: 1em;
+}
+
+.planet__description > div {
+	width: 100%;
+}

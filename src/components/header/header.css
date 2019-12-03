@@ -1,0 +1,11 @@
+header .nav-item {
+	padding: 1em;
+	cursor: pointer;
+	border-radius: 3px;
+	
+	transition: .15s;
+}
+
+header .nav-item:hover {
+	background: #005353;
+}
