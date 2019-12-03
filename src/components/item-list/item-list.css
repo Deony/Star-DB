@@ -1,0 +1,11 @@
+.list-characters__item {
+	padding: 8px 20px !important;
+	cursor: pointer;
+}
+
+.list-characters__item:first-child {
+	border-top: none !important;
+}
+.list-characters__item:hover {
+	background: #555;
+}
