@@ -1,21 +1,68 @@
-import React from 'react';
+import React, { Component } from 'react';
 
 import './person-details.css';
+import SwapiService from "../../service/swapi-service";
+import Spinner from "../spinner/spinner";
+import Error from "../error/error-indicator";
+import PersonDetailsView from "./person-details-view";
 
-
-export default () => {
-	return (
-		<div className="box person-details d-flex align-items-center">
-			<img className='person__img' src="https://upload.wikimedia.org/wikipedia/commons/f/f0/GHS-pictogram-unknown.svg" alt="character"/>
-			
-			<div className="person__content">
-				<h4>Person Name</h4>
-				<div className="person__description">
-					<div className='border-top'>Gender: Male</div>
-					<div className='border-top'>Birth year: 19 BBY</div>
-					<div className='border-top'>Skin color: Fair</div>
-				</div>
+export default class PersonDetails extends Component{
+	
+	swapiService = new SwapiService();
+	
+	state = {
+		person: null,
+		loading: true,
+		error: false
+	};
+	
+	componentDidMount() {
+		this.updatePersonDetails();
+	};
+	
+	componentWillReceiveProps() {
+		this.setState({
+			loading: true,
+		})
+	}
+	
+	componentDidUpdate(prevProps) {
+		if(this.props.selectedItemId !== prevProps.selectedItemId) {
+			this.updatePersonDetails();
+		}
+		
+	};
+	
+	updatePersonDetails = () => {
+		const { selectedItemId } = this.props;
+		if(!selectedItemId) {
+			return
+		}
+		this.swapiService.getPerson(selectedItemId)
+			.then(this.onDetailsLoaded)
+	};
+	
+	onDetailsLoaded = (person) => {
+		this.setState({
+			person,
+			loading: false
+		})
+	};
+	
+	render() {
+		const { person, loading, error} = this.state;
+		const { selectedItemId } = this.props;
+		
+		const spinner = loading ? <Spinner /> : null;
+		const errorIndicator = error ? <Error /> : null;
+		const content = !(loading || error) ? <PersonDetailsView personDetails={person}/> : null;
+		
+		return (
+			<div className="box person-details d-flex align-items-center">
+				{spinner}
+				{errorIndicator}
+				{content}
 			</div>
-		</div>
-	)
+		)
+	}
 }

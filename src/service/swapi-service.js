@@ -13,7 +13,7 @@ export default class SwapiService {
 	
 	async getAllPeople() {
 		const res = await this.getResource('people/');
-		return res.results;
+		return res.results.map( el => this.getPersonData(el));
 	}
 	
 	async getPerson(id) {
@@ -33,7 +33,7 @@ export default class SwapiService {
 	
 	async getAllStarships() {
 		const res = await this.getResource('starships/');
-		return res.results;
+		return res.results.map( el => this.getStarshipData(el));
 	}
 	
 	async getStarship(id) {
@@ -41,39 +41,38 @@ export default class SwapiService {
 		return this.getStarshipData(res);
 	}
 	
-	getIdPlanet = (id) => {
+	getId = (id) => {
 		const regExp = /\/([0-9]*)\/$/;
-		return id.match(regExp)[1];
-	}
+		return parseInt(id.match(regExp)[1]);
+	};
 	
 	getPlanetData = (planet) => {
-		console.log(planet)
 		return {
-			id: this.getIdPlanet(planet.url),
+			id: this.getId(planet.url),
 			name: planet.name,
 			population: planet.population,
 			rotationPeriod: planet.rotation_period,
 			diameter: planet.diameter,
 		}
-	}
+	};
 	
 	getPersonData = (person) => {
 		return {
-			id: this.getIdPlanet(person.url),
+			id: this.getId(person.url),
 			name: person.name,
 			gender: person.gender,
 			birthYear: person.birth_year,
 			skinColor: person.skin_color,
 		}
-	}
+	};
 	
 	getStarshipData = (starship) => {
 		return {
-			id: this.getIdPlanet(starship.url),
+			id: this.getId(starship.url),
 			name: starship.name,
 			length: starship.length,
 			hyperdriveRating: starship.hyperdrive_rating,
 			crew: starship.crew,
 		}
-	}
+	};
 }

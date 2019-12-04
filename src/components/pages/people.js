@@ -5,8 +5,11 @@ import PersonDetails from  "../person-details/person-details";
 import Row from  "../row/row";
 
 
-export default () => {
+export default (props) => {
 	return (
-		<Row left={<ItemList />} right={<PersonDetails />} />
+		<Row
+			left={<ItemList onItemSelected={props.onItemSetected} />}
+			right={<PersonDetails selectedItemId={props.itemId}/>}
+		/>
 	)
 }
