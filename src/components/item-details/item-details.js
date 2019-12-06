@@ -6,7 +6,7 @@ import ItemDetailsView from "./item-details-view";
 import ErrorBoundary from "../error-boundary/error-boundary";
 
 
-export default class PersonDetails extends Component{
+export default class ItemDetails extends Component{
 	
 	state = {
 		item: null,
@@ -30,15 +30,13 @@ export default class PersonDetails extends Component{
 		if(this.props.selectedItemId !== prevProps.selectedItemId) {
 			this.updatePersonDetails();
 		}
-		
 	};
 	
 	updatePersonDetails = () => {
 		const { selectedItemId, getData } = this.props;
 		
-		if(!selectedItemId) {
-			return
-		}
+		if(!selectedItemId) return;
+		
 		getData(selectedItemId)
 			.then(this.onDetailsLoaded)
 	};
@@ -53,10 +51,8 @@ export default class PersonDetails extends Component{
 	
 	render() {
 		const { item, loading, imageUrl } = this.state;
-		const { itemDetails } = this.props;
-		
 		const spinner = loading ? <Spinner /> : null;
-		const content = !(loading) ? <ItemDetailsView item={item} imageUrl={imageUrl} itemDetails={itemDetails}/> : null;
+		const content = !loading ? <ItemDetailsView item={item} imageUrl={imageUrl} /> : null;
 		
 		return (
 			<div className="box item-details d-flex align-items-center">

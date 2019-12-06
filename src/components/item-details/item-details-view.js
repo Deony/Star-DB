@@ -1,9 +1,10 @@
 import React from 'react';
+import Record from './item-details-record';
 
 
 export default (props) => {
-	const { id, name, ...itemProps } = props.item;
-	const { imageUrl, itemDetails: ItemDetails } = props;
+	const { name, more: itemProps } = props.item;
+	const { imageUrl } = props;
 	
 	return (
 		<React.Fragment>
@@ -12,7 +13,11 @@ export default (props) => {
 			<div className="item__content">
 				<h4>{name}</h4>
 				<div className="item__description">
-					<ItemDetails itemProps={itemProps}/>
+					{itemProps.map((item, key) => {
+							const { label, field } = item;
+							return <Record itemField={field} itemLabel={label} key={key} />
+						})
+					}
 				</div>
 			</div>
 		</React.Fragment>

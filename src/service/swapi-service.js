@@ -63,9 +63,12 @@ export default class SwapiService {
 		return {
 			id: this.getId(planet.url),
 			name: planet.name,
-			population: planet.population,
-			rotationPeriod: planet.rotation_period,
-			diameter: planet.diameter,
+			more:
+				[
+					{label: 'Population', field: planet.population},
+					{label: 'Rotation period', field: planet.rotation_period},
+					{label: 'Diameter', field: planet.diameter}
+				]
 		}
 	};
 	
@@ -73,9 +76,12 @@ export default class SwapiService {
 		return {
 			id: this.getId(person.url),
 			name: person.name,
-			gender: person.gender,
-			birthYear: person.birth_year,
-			skinColor: person.skin_color,
+			more:
+				[
+					{label: 'Gender', field: person.gender},
+					{label: 'Birth year', field: person.birth_year},
+					{label: 'Skin color', field: person.skin_color}
+				]
 		}
 	};
 	
@@ -83,9 +89,12 @@ export default class SwapiService {
 		return {
 			id: this.getId(starship.url),
 			name: starship.name,
-			length: starship.length,
-			hyperdriveRating: starship.hyperdrive_rating,
-			crew: starship.crew,
+			more:
+				[
+					{label: 'Length', field: starship.length},
+					{label: 'Hyperdrive rating', field: starship.hyperdrive_rating},
+					{label: 'Crew', field: starship.crew}
+				]
 		}
 	};
 }

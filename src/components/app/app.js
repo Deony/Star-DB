@@ -27,28 +27,28 @@ export default class App extends Component {
 					<RandomPlanet />
 					<People onItemSelected={this.onItemSelected}
 							itemId={this.state.selectedItem}
-							renderItem={({name, birthYear}) => (
+							renderItem={({name, more}) => (
 								<div>
 									{name}
-									<small>({birthYear})</small>
+									<small>({more[1].field})</small>
 								</div>
 							)}
 					/>
 					{/*<Planets onItemSelected={this.onItemSelected}*/}
 					{/*		itemId={this.state.selectedItem}*/}
-					{/*		renderItem={({name, diameter}) => (*/}
+					{/*		renderItem={({name, more}) => (*/}
 					{/*			<div>*/}
 					{/*				{name}*/}
-					{/*				<small>({diameter} km)</small>*/}
+					{/*				<small>({more[2].field} km)</small>*/}
 					{/*			</div>*/}
 					{/*		)}*/}
 					{/*/>*/}
 					{/*<Starships onItemSelected={this.onItemSelected}*/}
 					{/*		itemId={this.state.selectedItem}*/}
-					{/*		renderItem={({name, length}) => (*/}
+					{/*		renderItem={({name, more}) => (*/}
 					{/*			<div>*/}
 					{/*				{name}*/}
-					{/*				<small>({length} m)</small>*/}
+					{/*				<small>({more[0].field} m)</small>*/}
 					{/*			</div>*/}
 					{/*		)}*/}
 					{/*/>*/}
