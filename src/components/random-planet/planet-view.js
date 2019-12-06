@@ -4,8 +4,7 @@ import icon from '../error/unknown-icon.svg';
 
 
 export default ( {planet} ) => {
-	const { id, name, population, rotationPeriod, diameter
-	} = planet;
+	const { id, name, population, rotationPeriod, diameter } = planet;
 	
 	const onErrorSrcImg = (e) => {
 		e.target.src = `${icon}`;

@@ -1,22 +1,26 @@
 import React, { Component } from "react";
 
+
 export default class ListView extends Component {
 	
-	renderItems(list, onItemSelected) {
-		return list.map( ({name, id}) => {
+	renderItems(list) {
+		return list.map( (item) => {
+			const { id } = item;
+			const label = this.props.renderItem(item);
+
 			return (
-				<li className="list-characters__item border-top" key={id} onClick={ () => { onItemSelected(id) }}>{name}</li>
+				<li className="list__item border-top" key={id} onClick={ () => {this.props.onItemSelected(id)} }>{label}</li>
 			)
 		})
 	}
 	
 	render() {
-		const { peopleList, onItemSelected } = this.props;
+		const { itemList } = this.props;
 
-		const items = this.renderItems(peopleList, onItemSelected);
+		const items = this.renderItems(itemList);
 		
 		return(
-			<ul className="list-characters list">
+			<ul className="list">
 				{items}
 			</ul>
 		)

@@ -2,55 +2,45 @@ import React, { Component } from 'react';
 
 import './item-list.css';
 import Spinner from '../spinner/spinner';
-import Error from "../error/error-indicator";
 import ListView from './list-view';
-import SwapiService from "../../service/swapi-service";
+import ErrorBoundary from "../error-boundary/error-boundary";
+
 
 export default class ItemList extends Component{
-	swapiService = new SwapiService();
 	
 	state = {
-		peopleList: null,
-		loading: true,
-		error: false
+		itemList: null,
+		loading: true
 	};
 	
 	componentDidMount() {
-		this.updateListPeople();
+		const { getData } = this.props;
+		
+		getData()
+			.then(this.onListLoaded)
+			.catch(this.onError);
 	}
 	
-	updateListPeople = () => {
-		this.swapiService.getAllPeople()
-			.then(this.onListLoaded)
-			.catch(this.onError)
-	};
-	
-	onListLoaded = (people) => {
+	onListLoaded = (items) => {
 		this.setState({
-			peopleList: people,
-			loading: false
-		})
-	};
-	
-	onError = (people) => {
-		this.setState({
-			error: true,
+			itemList: items,
 			loading: false
 		})
 	};
 	
 	render() {
-		const { peopleList, error, loading } = this.state;
-
-		const errorMessage = error ? <Error /> : null;
+		const { itemList, loading } = this.state;
+		const { onItemSelected, renderItem } = this.props;
+		
 		const spinner = loading ? <Spinner /> : null;
-		const content = !(error || loading) ? <ListView peopleList={peopleList} onItemSelected={this.props.onItemSelected}/> : null;
+		const content = !loading ? <ListView itemList={itemList} onItemSelected={onItemSelected} renderItem={renderItem}/> : null;
 		
 		return (
 			<div className="box">
-				{spinner}
-				{errorMessage}
-				{content}
+				<ErrorBoundary>
+					{spinner}
+					{content}
+				</ErrorBoundary>
 			</div>
 		)
 	}

@@ -1,0 +1,21 @@
+.item-details {
+	padding: 1rem;
+}
+
+.item-details .item__img {
+	margin-right: 1em;
+	width: 110px;
+	border-radius: 10px;
+}
+
+.item-details .item__content {
+	width: 100%;
+}
+
+.item-details .item__description {
+	padding-left: 1em;
+}
+
+.item-details .item__description > div {
+	width: 100%;
+}
