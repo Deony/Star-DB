@@ -1,5 +1,6 @@
 import React from 'react';
-import Record from './item-details-record';
+
+import { Record } from './';
 
 
 export default (props) => {

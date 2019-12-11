@@ -1,47 +1,27 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import './item-list.css';
-import Spinner from '../spinner/spinner';
-import ListView from './list-view';
-import ErrorBoundary from "../error-boundary/error-boundary";
 
 
-export default class ItemList extends Component{
+const ItemList = (props) => {
+	const { data, onItemSelected, children: renderLabel } = props;
 	
-	state = {
-		itemList: null,
-		loading: true
-	};
-	
-	componentDidMount() {
-		const { getData } = this.props;
-		
-		getData()
-			.then(this.onListLoaded)
-			.catch(this.onError);
-	}
-	
-	onListLoaded = (items) => {
-		this.setState({
-			itemList: items,
-			loading: false
-		})
-	};
-	
-	render() {
-		const { itemList, loading } = this.state;
-		const { onItemSelected, renderItem } = this.props;
-		
-		const spinner = loading ? <Spinner /> : null;
-		const content = !loading ? <ListView itemList={itemList} onItemSelected={onItemSelected} renderItem={renderItem}/> : null;
+	const items = data.map( (item) => {
+		const { id } = item;
+		const label = renderLabel(item);
 		
 		return (
-			<div className="box">
-				<ErrorBoundary>
-					{spinner}
-					{content}
-				</ErrorBoundary>
-			</div>
+			<li className="list__item border-top" key={id} onClick={ () => {onItemSelected(id)} }>{label}</li>
 		)
-	}
-}
+	});
+	
+	return (
+		<div className="box">
+			<ul className="list">
+				{items}
+			</ul>
+		</div>
+	)
+};
+
+export default ItemList;

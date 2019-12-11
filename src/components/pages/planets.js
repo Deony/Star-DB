@@ -1,28 +1,29 @@
 import React, { Component } from 'react';
 
-import ItemList from  "../item-list/item-list";
-import ItemDetails from  "../item-details/item-details";
 import Row from  "../row/row";
-import SwapiService from "../../service/swapi-service";
+import { PlanetList, PlanetDetails } from "../swapi-components";
 
 
 export default class PeoplePage extends Component {
 	
-	swapiService = new SwapiService();
+	state = {
+		selectedItem: 5
+	};
+	
+	onPersonSelected = (id) => {
+		this.setState({
+			selectedItem: id
+		})
+	};
 	
 	render() {
-		const { onItemSelected, itemId, renderItem } = this.props;
+		const { selectedItem } = this.state;
 		
 		return (
 			<Row
-				left={<ItemList onItemSelected={onItemSelected}
-								renderItem={renderItem}
-								getData={this.swapiService.getAllPlanets}
-				/>}
-				right={<ItemDetails selectedItemId={itemId}
-									getData={this.swapiService.getPlanet}
-									getImageUrl={this.swapiService.getPlanetImg}/>
+				left={<PlanetList onItemSelected={this.onPersonSelected }/>
 				}
+				right={<PlanetDetails itemId={selectedItem}/>}
 			/>
 		)
 	}

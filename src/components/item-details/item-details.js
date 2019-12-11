@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import './item-details.css';
 import Spinner from "../spinner/spinner";
-import ItemDetailsView from "./item-details-view";
+import { ItemDetailsView } from "./";
 import ErrorBoundary from "../error-boundary/error-boundary";
 
 

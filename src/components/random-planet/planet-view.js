@@ -1,10 +1,11 @@
 import React from "react";
 
 import icon from '../error/unknown-icon.svg';
+import {Record} from "../item-details";
 
 
 export default ( {planet} ) => {
-	const { id, name, population, rotationPeriod, diameter } = planet;
+	const { id, name, more: itemProps } = planet;
 	
 	const onErrorSrcImg = (e) => {
 		e.target.src = `${icon}`;
@@ -17,9 +18,11 @@ export default ( {planet} ) => {
 			<div className="planet__content">
 				<h2>{name}</h2>
 				<div className="planet__description">
-					<div className='border-top'>Population: {population}</div>
-					<div className='border-top'>Rotation Period: {rotationPeriod}</div>
-					<div className='border-top'>Diameter: {diameter}</div>
+					{itemProps.map((item, key) => {
+							const { label, field } = item;
+							return <Record itemField={field} itemLabel={label} key={key}/>
+						})
+					}
 				</div>
 			</div>
 		</React.Fragment>
