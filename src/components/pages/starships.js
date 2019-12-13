@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 
-import Row from  "../row/row";
+import Row from  "../row";
 import { StarshipList, StarshipDetails } from "../swapi-components";
 
 
 export default class PeoplePage extends Component {
 	
 	state = {
-		selectedItem: 5
+		selectedItem: 3
 	};
 	
 	onPersonSelected = (id) => {

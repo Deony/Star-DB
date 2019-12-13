@@ -1,5 +1,4 @@
 header .nav-item {
-	padding: 1em;
 	cursor: pointer;
 	border-radius: 3px;
 	
@@ -8,4 +7,9 @@ header .nav-item {
 
 header .nav-item:hover {
 	background: #005353;
+}
+
+header button {
+	margin-left: 1em;
+	padding: 0.5rem 1rem !important;
 }

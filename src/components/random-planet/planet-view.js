@@ -1,11 +1,13 @@
 import React from "react";
 
 import icon from '../error/unknown-icon.svg';
-import {Record} from "../item-details";
+import { Record } from "../item-details";
 
 
-export default ( {planet} ) => {
-	const { id, name, more: itemProps } = planet;
+export default ( props ) => {
+	
+	const { planet, getPlanetImg } = props;
+	const { name, more: itemProps } = planet;
 	
 	const onErrorSrcImg = (e) => {
 		e.target.src = `${icon}`;
@@ -13,7 +15,7 @@ export default ( {planet} ) => {
 	
 	return (
 		<React.Fragment>
-			<img className='planet__img' src={`https://starwars-visualguide.com/assets/img/planets/${id}.jpg`} alt={`${name}`} onError={ onErrorSrcImg } />
+			<img className='planet__img' src={getPlanetImg} alt={`${name}`} onError={ onErrorSrcImg } />
 			
 			<div className="planet__content">
 				<h2>{name}</h2>

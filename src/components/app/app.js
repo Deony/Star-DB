@@ -6,19 +6,33 @@ import Header from "../header/header";
 import RandomPlanet from  "../random-planet";
 import { PeoplePage } from  "../pages";
 import SwapiService from "../../service/swapi-service";
+import DummySwapiService from "../../service/dummy-swapi-service";
 import { SwapiServiceProvider } from "../swapi-service-context";
 import ErrorBoundary from "../error-boundary/error-boundary";
 
 
 export default class App extends Component {
-	swapiService = new SwapiService();
+	
+	state = {
+		swapiService: new SwapiService()
+	};
+	
+	onServiceChange = () => {
+		this.setState(({swapiService}) => {
+			const Service = swapiService instanceof SwapiService ? DummySwapiService : SwapiService;
+
+			return {
+				swapiService: new Service()
+			};
+		})
+	};
 	
 	render() {
 		return (
 				<div className="app">
 					<ErrorBoundary>
-						<SwapiServiceProvider value={this.swapiService}>
-							<Header />
+						<SwapiServiceProvider value={this.state.swapiService}>
+							<Header onServiceChange={this.onServiceChange}/>
 							<RandomPlanet />
 							<PeoplePage />
 							{/*<PlanetsPage />*/}

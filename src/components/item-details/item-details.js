@@ -19,7 +19,7 @@ export default class ItemDetails extends Component{
 	};
 	
 	UNSAFE_componentWillReceiveProps(nextProps) {
-		if(nextProps.selectedItemId !== this.props.selectedItemId) {
+		if(nextProps.itemId !== this.props.itemId) {
 			this.setState({
 				loading: true
 			})
@@ -27,17 +27,18 @@ export default class ItemDetails extends Component{
 	}
 	
 	componentDidUpdate(prevProps) {
-		if(this.props.selectedItemId !== prevProps.selectedItemId) {
+		const { itemId, getData, getImageUrl } = this.props;
+		if(itemId !== prevProps.itemId || getData !== prevProps.getData || getImageUrl !== prevProps.getImageUrl) {
 			this.updatePersonDetails();
 		}
 	};
 	
 	updatePersonDetails = () => {
-		const { selectedItemId, getData } = this.props;
+		const { itemId, getData } = this.props;
 		
-		if(!selectedItemId) return;
+		if(!itemId) return;
 		
-		getData(selectedItemId)
+		getData(itemId)
 			.then(this.onDetailsLoaded)
 	};
 	
