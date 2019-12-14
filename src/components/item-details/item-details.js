@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import './item-details.css';
 import Spinner from "../spinner/spinner";
 import { ItemDetailsView } from "./";
-import ErrorBoundary from "../error-boundary/error-boundary";
+import ErrorBoundary from "../error-boundary";
 
 
 export default class ItemDetails extends Component{
@@ -52,6 +52,11 @@ export default class ItemDetails extends Component{
 	
 	render() {
 		const { item, loading, imageUrl } = this.state;
+		
+		if(!item) {
+			return 	<div>Select an item from the list</div>
+		}
+		
 		const spinner = loading ? <Spinner /> : null;
 		const content = !loading ? <ItemDetailsView item={item} imageUrl={imageUrl} /> : null;
 		

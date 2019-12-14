@@ -7,7 +7,7 @@ import { PersonList, PersonDetails } from "../swapi-components";
 export default class PeoplePage extends Component {
 	
 	state = {
-		selectedItem: 3
+		selectedItem: null
 	};
 	
 	onPersonSelected = (id) => {

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 
 import Spinner from "../spinner/spinner";
-import ErrorBoundary from "../error-boundary/error-boundary";
+import ErrorBoundary from "../error-boundary";
+import ErrorIndicator from '../error'
 
 
 const withData = (View) => {
@@ -10,7 +11,8 @@ const withData = (View) => {
 		
 		state = {
 			data: null,
-			loading: true
+			loading: true,
+			error: false
 		};
 		
 		componentDidMount() {
@@ -36,11 +38,22 @@ const withData = (View) => {
 			})
 		};
 		
+		onError = () => {
+			this.setState({
+				loading: false,
+				error: true
+			})
+		};
+		
 		render() {
-			const { data, loading } = this.state;
+			const { data, loading, error } = this.state;
 			
 			if(loading) {
 				return <Spinner />;
+			}
+			
+			if(error) {
+				return <ErrorIndicator />;
 			}
 			
 			return (

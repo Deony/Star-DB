@@ -3,7 +3,8 @@ import React, { Component } from 'react';
 import './random-planet.css';
 import Spinner from "../spinner/spinner";
 import PlanetView from "./planet-view";
-import ErrorBoundary from "../error-boundary/error-boundary";
+import ErrorBoundary from "../error-boundary";
+import ErrorIndicator from '../error';
 import { withSwapiService } from "../hoc-helpers";
 
 
@@ -12,7 +13,8 @@ class RandomPlanet extends Component {
 	state = {
 		planet: {},
 		imageUrl: null,
-		loading: true
+		loading: true,
+		error: false
 	};
 	
 	componentDidMount() {
@@ -46,8 +48,22 @@ class RandomPlanet extends Component {
 		})
 	};
 	
+	onError = () => {
+		clearInterval(this.interval);
+		
+		this.setState({
+			loading: false,
+			error: true
+		})
+	};
+	
 	render() {
-		const { planet, loading } = this.state;
+		const { planet, loading, error } = this.state;
+
+		if(error) {
+			return <ErrorIndicator/>
+		}
+		
 		const spinner = loading ? <Spinner /> : null;
 		const content = !loading ? <PlanetView  planet={planet} getPlanetImg={this.state.imageUrl}/> : null;
 		

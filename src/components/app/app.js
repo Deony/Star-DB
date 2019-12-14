@@ -8,7 +8,7 @@ import { PeoplePage } from  "../pages";
 import SwapiService from "../../service/swapi-service";
 import DummySwapiService from "../../service/dummy-swapi-service";
 import { SwapiServiceProvider } from "../swapi-service-context";
-import ErrorBoundary from "../error-boundary/error-boundary";
+import ErrorBoundary from "../error-boundary";
 
 
 export default class App extends Component {
