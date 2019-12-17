@@ -21,9 +21,8 @@ export default class PeoplePage extends Component {
 		
 		return (
 			<Row
-				left={<PersonList onItemSelected={this.onPersonSelected }/>
-				}
-				right={<PersonDetails itemId={selectedItem}/>}
+				left={<PersonList onItemSelected={this.onPersonSelected} />}
+				right={<PersonDetails itemId={selectedItem} />}
 			/>
 		)
 	}

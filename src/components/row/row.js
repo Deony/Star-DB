@@ -1,7 +1,9 @@
 import React from 'react';
 
+import PropTypes from 'prop-types';
 
-export default ( {left, right} ) => {
+
+const Row = ( {left, right} ) => {
 	return (
 		<div className="row">
 			<div className="col-md-6">
@@ -13,4 +15,11 @@ export default ( {left, right} ) => {
 			</div>
 		</div>
 	)
-}
+};
+
+Row.propTypes = {
+	left: PropTypes.node,
+	right: PropTypes.node
+};
+
+export default Row;

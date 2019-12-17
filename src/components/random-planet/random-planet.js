@@ -6,6 +6,7 @@ import PlanetView from "./planet-view";
 import ErrorBoundary from "../error-boundary";
 import ErrorIndicator from '../error';
 import { withSwapiService } from "../hoc-helpers";
+import PropTypes from 'prop-types';
 
 
 class RandomPlanet extends Component {
@@ -17,9 +18,18 @@ class RandomPlanet extends Component {
 		error: false
 	};
 	
+	static defaultProps = {
+		updateInterval: 4000
+	};
+	
+	static propTypes = {
+		updateInterval: PropTypes.number
+	};
+	
 	componentDidMount() {
+		const { updateInterval } = this.props;
 		this.updatePlanet();
-		this.interval = setInterval(this.updatePlanet, 3000)
+		this.interval = setInterval(this.updatePlanet, updateInterval)
 	};
 	
 	componentWillUnmount() {
