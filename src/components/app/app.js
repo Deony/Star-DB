@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
+import { BrowserRouter, Route } from 'react-router-dom';
 
 import './app.css';
 
 import Header from "../header/header";
 import RandomPlanet from  "../random-planet";
-import { PeoplePage } from  "../pages";
+import { PeoplePage, PlanetsPage, StarshipsPage } from  "../pages";
 import SwapiService from "../../service/swapi-service";
 import DummySwapiService from "../../service/dummy-swapi-service";
 import { SwapiServiceProvider } from "../swapi-service-context";
@@ -20,7 +21,7 @@ export default class App extends Component {
 	onServiceChange = () => {
 		this.setState(({swapiService}) => {
 			const Service = swapiService instanceof SwapiService ? DummySwapiService : SwapiService;
-
+			
 			return {
 				swapiService: new Service()
 			};
@@ -29,17 +30,29 @@ export default class App extends Component {
 	
 	render() {
 		return (
-				<div className="app">
-					<ErrorBoundary>
-						<SwapiServiceProvider value={this.state.swapiService}>
-							<Header onServiceChange={this.onServiceChange}/>
-							<RandomPlanet />
-							<PeoplePage />
-							{/*<PlanetsPage />*/}
-							{/*<StarshipsPage />*/}
-						</SwapiServiceProvider>
-					</ErrorBoundary>
-				</div>
+				<ErrorBoundary>
+					<SwapiServiceProvider value={this.state.swapiService}>
+						<BrowserRouter>
+							<div className="app">
+								<Header onServiceChange={this.onServiceChange} />
+								<RandomPlanet />
+								
+								<Route path='/'
+									   exact
+									   render={() => <h2>Welcome to Star DB</h2>} />
+									   
+								<Route path='/people/:id?'
+									   component={PeoplePage} />
+									   
+								<Route path='/planets/:id?'
+									   component={PlanetsPage} />
+									   
+								<Route path='/starships/:id?'
+									   component={StarshipsPage} />
+							</div>
+						</BrowserRouter>
+					</SwapiServiceProvider>
+				</ErrorBoundary>
 			)
 	}
 }

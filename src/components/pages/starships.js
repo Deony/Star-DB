@@ -1,29 +1,21 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { withRouter } from 'react-router-dom';
 
-import Row from  "../row";
+import Row from "../row";
 import { StarshipList, StarshipDetails } from "../swapi-components";
 
 
-export default class PeoplePage extends Component {
+const StarshipPage = ({ history, match }) => {
+	const onStarshipSelected = (id) => history.push(`${id}`);
 	
-	state = {
-		selectedItem: null
-	};
+	const { id } = match.params;
 	
-	onStarshipSelected = (id) => {
-		this.setState({
-			selectedItem: id
-		})
-	};
-	
-	render() {
-		const { selectedItem } = this.state;
-		
-		return (
-			<Row
-				left={<StarshipList onItemSelected={this.onStarshipSelected } />}
-				right={<StarshipDetails itemId={selectedItem} />}
-			/>
-		)
-	}
-}
+	return (
+		<Row
+			left={<StarshipList onItemSelected={onStarshipSelected} />}
+			right={<StarshipDetails itemId={id} />}
+		/>
+	)
+};
+
+export default withRouter(StarshipPage);

@@ -1,29 +1,21 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { withRouter } from 'react-router-dom';
 
-import Row from  "../row";
+import Row from "../row";
 import { PlanetList, PlanetDetails } from "../swapi-components";
 
 
-export default class PeoplePage extends Component {
+const PlanetPage = ({ history, match }) => {
+	const onPlanetSelected = (id) => history.push(`${id}`);
 	
-	state = {
-		selectedItem: null
-	};
+	const { id } = match.params;
 	
-	onPlanetSelected = (id) => {
-		this.setState({
-			selectedItem: id
-		})
-	};
-	
-	render() {
-		const { selectedItem } = this.state;
-		
-		return (
-			<Row
-				left={<PlanetList onItemSelected={this.onPlanetSelected} />}
-				right={<PlanetDetails itemId={selectedItem} />}
-			/>
-		)
-	}
-}
+	return (
+		<Row
+			left={<PlanetList onItemSelected={onPlanetSelected} />}
+			right={<PlanetDetails itemId={id} />}
+		/>
+	)
+};
+
+export default withRouter(PlanetPage)
