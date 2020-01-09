@@ -22,6 +22,12 @@ const Header = (props) => {
 					<li className='nav-item d-inline-block'>
 						<Link to="/starships/" className='nav-link'>Starships</Link>
 					</li>
+					<li className='nav-item d-inline-block'>
+						<Link to="/login" className='nav-link'>Login</Link>
+					</li>
+					<li className='nav-item d-inline-block'>
+						<Link to="/private" className='nav-link'>Private</Link>
+					</li>
 				</ul>
 				<button className='btn btn-primary' onClick={onServiceChange}>Change Service</button>
 			</div>
